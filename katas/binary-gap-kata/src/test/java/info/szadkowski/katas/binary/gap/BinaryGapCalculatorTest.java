@@ -38,7 +38,9 @@ class BinaryGapCalculatorTest {
             Arguments.of(0b101010101010101, 1),
             Arguments.of(0b101000, 1),
             Arguments.of(0b101001000, 2),
-            Arguments.of(0b10000000000000000000000000000001, 30)
+            Arguments.of(0b10000000000000000000000000000001, 30),
+            Arguments.of(0b10000000000000000000000000000000, 0),
+            Arguments.of(0b11111111111111111111111111111111, 0)
     );
   }
 }

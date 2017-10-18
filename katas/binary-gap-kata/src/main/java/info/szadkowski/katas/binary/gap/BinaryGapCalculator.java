@@ -2,49 +2,30 @@ package info.szadkowski.katas.binary.gap;
 
 public class BinaryGapCalculator {
   public int countGaps(int n) {
-    return new CalculatorMethod(n).countGaps();
+    long minValue = findFirstOne(n);
+
+    int gap = 0;
+    int counter = 0;
+
+    for (long i = minValue; i != 0x100000000L; i <<= 1) {
+      if ((n & i) == i) {
+        gap = Math.max(gap, counter);
+        counter = 0;
+      } else {
+        counter++;
+      }
+    }
+
+    return gap;
   }
 
-  private static class CalculatorMethod {
-    private int number;
-
-    private CalculatorMethod(int number) {
-      this.number = number;
-    }
-
-    private int countGaps() {
-      skipLeadingZeros();
-
-      int gap = 0;
-
-      while (canMove()) {
-        int gapCandidate = moveToOnes();
-        gap = Math.max(gap, gapCandidate);
+  private long findFirstOne(int n) {
+    for (long i = 0b1; i != 0x100000000L; i <<= 1) {
+      if ((n & i) == i) {
+        return i;
       }
-
-      return gap;
     }
 
-    private void skipLeadingZeros() {
-      moveToOnes();
-    }
-
-    private boolean canMove() {
-      number = ~number;
-      int moves = moveToOnes();
-      number = ~number;
-      return moves != 0;
-    }
-
-    private int moveToOnes() {
-      int moves = 0;
-      if (number != 0) {
-        while ((number & 0b1) != 0b1) {
-          number >>= 1;
-          moves++;
-        }
-      }
-      return moves;
-    }
+    return 0x100000000L;
   }
 }
