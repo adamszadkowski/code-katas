@@ -25,6 +25,7 @@
 
     <modules>
         <module>dependency-bom</module>
+        <module>katas</module>
     </modules>
 
     <dependencyManagement>
