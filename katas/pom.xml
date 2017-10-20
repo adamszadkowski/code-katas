@@ -15,5 +15,6 @@
 
     <modules>
         <module>binary-gap-kata</module>
+        <module>cyclic-rotation-kata</module>
     </modules>
 </project>
