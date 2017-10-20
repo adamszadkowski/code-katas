@@ -17,5 +17,6 @@
         <module>binary-gap-kata</module>
         <module>cyclic-rotation-kata</module>
         <module>search-missing-element-kata</module>
+        <module>tape-equilibrium-kata</module>
     </modules>
 </project>
