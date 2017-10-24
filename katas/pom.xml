@@ -19,5 +19,6 @@
         <module>search-missing-element-kata</module>
         <module>tape-equilibrium-kata</module>
         <module>max-counters-kata</module>
+        <module>zigzag-kata</module>
     </modules>
 </project>
