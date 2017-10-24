@@ -46,7 +46,7 @@ class BinaryTreeParserTest {
     }
 
     @Test
-    void shouldFailOnMissingNodeIndicatorOnLeftRight() {
+    void shouldFailOnMissingNodeIndicatorOnRight() {
       BinaryTreeParser.InvalidInputException exception = Assertions.assertThrows(BinaryTreeParser.InvalidInputException.class, () -> {
         parser.parse("()-");
       });
