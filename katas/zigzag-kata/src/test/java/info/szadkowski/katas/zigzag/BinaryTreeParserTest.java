@@ -60,7 +60,7 @@ class BinaryTreeParserTest {
         parser.parse("+-()");
       });
 
-      assertThat(exception).hasMessage("Expected 2 line");
+      assertThat(exception).hasMessage("Expected line 2");
     }
 
     @Test
@@ -69,7 +69,7 @@ class BinaryTreeParserTest {
         parser.parse("()-+");
       });
 
-      assertThat(exception).hasMessage("Expected 2 line");
+      assertThat(exception).hasMessage("Expected line 2");
     }
 
     @Test

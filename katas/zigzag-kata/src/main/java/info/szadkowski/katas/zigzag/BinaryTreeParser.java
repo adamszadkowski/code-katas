@@ -48,7 +48,7 @@ public class BinaryTreeParser<T> {
 
   private void validateInput(String[] lines, int line) {
     if (lines.length <= line)
-      throw new InvalidInputException(String.format("Expected %d line", line + 1));
+      throw new InvalidInputException(String.format("Expected line %d", line + 1));
   }
 
   private int findOpenParen(int line, char[] chars, int pos) {
