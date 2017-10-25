@@ -1,4 +1,4 @@
-package info.szadkowski.katas.zigzag;
+package info.szadkowski.katas.zigzag.tree.parser;
 
 public class BinaryTreeParser<T> {
   private final Converter<T> converter;
@@ -56,7 +56,7 @@ public class BinaryTreeParser<T> {
       if (i < chars.length && chars[i] == '(')
         return i;
 
-    throw new InvalidInputException(String.format("Expected node begin in (line %d, position %d)", line, pos));
+    throw new InvalidInputException(String.format("Expected node begin in (line %d, position %d)", line + 1, pos + 1));
   }
 
   private int findCloseParen(int line, char[] chars, int pos) {
@@ -64,7 +64,7 @@ public class BinaryTreeParser<T> {
       if (chars[i] == ')')
         return i;
 
-    throw new InvalidInputException(String.format("Expected node end in (line %d, position %d)", line, pos + 1));
+    throw new InvalidInputException(String.format("Expected node end in (line %d, position %d)", line + 1, pos + 2));
   }
 
   private int findLeftNodePosition(int line, char[] chars, int openParen) {
@@ -77,7 +77,7 @@ public class BinaryTreeParser<T> {
       pos--;
 
     if (chars[pos] != '+')
-      throw new InvalidInputException(String.format("Expected '+' in (line %d, position %d)", line, pos));
+      throw new InvalidInputException(String.format("Expected '+' in (line %d, position %d)", line + 1, pos + 1));
 
     return pos;
   }
@@ -92,7 +92,7 @@ public class BinaryTreeParser<T> {
       pos++;
 
     if (chars[pos] != '+')
-      throw new InvalidInputException(String.format("Expected '+' in (line %d, position %d)", line, pos + 1));
+      throw new InvalidInputException(String.format("Expected '+' in (line %d, position %d)", line + 1, pos + 2));
 
     return pos;
   }

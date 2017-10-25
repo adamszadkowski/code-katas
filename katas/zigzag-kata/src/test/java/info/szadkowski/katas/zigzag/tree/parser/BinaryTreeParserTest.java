@@ -1,4 +1,4 @@
-package info.szadkowski.katas.zigzag;
+package info.szadkowski.katas.zigzag.tree.parser;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +42,7 @@ class BinaryTreeParserTest {
         parser.parse("-()");
       });
 
-      assertThat(exception).hasMessage("Expected '+' in (line 0, position 0)");
+      assertThat(exception).hasMessage("Expected '+' in (line 1, position 1)");
     }
 
     @Test
@@ -51,7 +51,7 @@ class BinaryTreeParserTest {
         parser.parse("()-");
       });
 
-      assertThat(exception).hasMessage("Expected '+' in (line 0, position 3)");
+      assertThat(exception).hasMessage("Expected '+' in (line 1, position 4)");
     }
 
     @Test
@@ -78,7 +78,7 @@ class BinaryTreeParserTest {
         parser.parse("+-()\n");
       });
 
-      assertThat(exception).hasMessage("Expected node begin in (line 1, position 0)");
+      assertThat(exception).hasMessage("Expected node begin in (line 2, position 1)");
     }
 
     @Test
@@ -87,7 +87,7 @@ class BinaryTreeParserTest {
         parser.parse("()-+\n");
       });
 
-      assertThat(exception).hasMessage("Expected node begin in (line 1, position 3)");
+      assertThat(exception).hasMessage("Expected node begin in (line 2, position 4)");
     }
 
     @Test
@@ -97,7 +97,7 @@ class BinaryTreeParserTest {
                      "(");
       });
 
-      assertThat(exception).hasMessage("Expected node end in (line 1, position 1)");
+      assertThat(exception).hasMessage("Expected node end in (line 2, position 2)");
     }
 
     @Test
@@ -107,7 +107,7 @@ class BinaryTreeParserTest {
                      "   (");
       });
 
-      assertThat(exception).hasMessage("Expected node end in (line 1, position 4)");
+      assertThat(exception).hasMessage("Expected node end in (line 2, position 5)");
     }
   }
 
