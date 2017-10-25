@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class NodeBasedZigZagTest {
-  private BinaryTreeParser<NodeBasedZigZag.Node> parser;
-  private NodeBasedZigZag zigZag;
+class NodeBasedCountZigZagTest {
+  private BinaryTreeParser<NodeBasedCountZigZag.Node> parser;
+  private NodeBasedCountZigZag zigZag;
 
   @BeforeEach
   void setUp() {
-    parser = new BinaryTreeParser<>((l, r, s) -> new NodeBasedZigZag.Node(l, r, Integer.parseInt(s)));
-    zigZag = new NodeBasedZigZag();
+    parser = new BinaryTreeParser<>((l, r, s) -> new NodeBasedCountZigZag.Node(l, r, Integer.parseInt(s)));
+    zigZag = new NodeBasedCountZigZag();
   }
 
   @Test
@@ -24,20 +24,20 @@ class NodeBasedZigZagTest {
                   "    (6)        +-(7)\n" +
                   "              (8)";
 
-    NodeBasedZigZag.Node first = parser.parse(tree);
-    NodeBasedZigZag.Node second = parser.parse(tree);
+    NodeBasedCountZigZag.Node first = parser.parse(tree);
+    NodeBasedCountZigZag.Node second = parser.parse(tree);
 
     assertThat(second).isEqualTo(first);
   }
 
   @Test
   void shouldCompareDifferentTrees() {
-    NodeBasedZigZag.Node first = parser.parse("     +----(0)--+\n" +
+    NodeBasedCountZigZag.Node first = parser.parse("     +----(0)--+\n" +
                                               "  +-(1)     +-(2)----+\n" +
                                               " (3)-+     (4)    +-(5)\n" +
                                               "    (6)        +-(7)\n" +
                                               "              (8)");
-    NodeBasedZigZag.Node second = parser.parse("     +----(0)--+\n" +
+    NodeBasedCountZigZag.Node second = parser.parse("     +----(0)--+\n" +
                                                "  +-(1)     +-(2)----+\n" +
                                                " (3)-+     (4)    +-(5)\n" +
                                                "    (9)        +-(7)\n" +
@@ -48,7 +48,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldFillOneNode() {
-    NodeBasedZigZag.Node tree = parser.parse("(5)");
+    NodeBasedCountZigZag.Node tree = parser.parse("(5)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
@@ -58,7 +58,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldFillRightNodes() {
-    NodeBasedZigZag.Node tree = parser.parse("(5)--+\n" +
+    NodeBasedCountZigZag.Node tree = parser.parse("(5)--+\n" +
                                              "    (5)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
@@ -70,7 +70,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldFillLeftNodes() {
-    NodeBasedZigZag.Node tree = parser.parse(" +---(5)\n" +
+    NodeBasedCountZigZag.Node tree = parser.parse(" +---(5)\n" +
                                              "(5)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
@@ -82,7 +82,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldFillOneZigZagOnRight() {
-    NodeBasedZigZag.Node tree = parser.parse("(0)--+\n" +
+    NodeBasedCountZigZag.Node tree = parser.parse("(0)--+\n" +
                                              "  +-(0)\n" +
                                              " (0)");
 
@@ -96,7 +96,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldFillOneZigZagOnLeft() {
-    NodeBasedZigZag.Node tree = parser.parse(" +----(0)\n" +
+    NodeBasedCountZigZag.Node tree = parser.parse(" +----(0)\n" +
                                              "(0)--+\n" +
                                              "    (0)");
 
@@ -110,7 +110,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldFillOneZigZagFromBothSides() {
-    NodeBasedZigZag.Node tree = parser.parse(" +----(0)------+\n" +
+    NodeBasedCountZigZag.Node tree = parser.parse(" +----(0)------+\n" +
                                              "(0)--+     +--(0)\n" +
                                              "    (0)   (0)--+\n" +
                                              "              (0)");
@@ -126,7 +126,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldHandleTwiceRightBranch() {
-    NodeBasedZigZag.Node tree = parser.parse(" +----(0)-+\n" +
+    NodeBasedCountZigZag.Node tree = parser.parse(" +----(0)-+\n" +
                                              "(0)--+   (0)---+\n" +
                                              "    (0)     +-(0)\n" +
                                              "           (0)-+\n" +
@@ -144,7 +144,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldHandleTwiceLeftBranch() {
-    NodeBasedZigZag.Node tree = parser.parse("    +----(0)-+\n" +
+    NodeBasedCountZigZag.Node tree = parser.parse("    +----(0)-+\n" +
                                              " +-(0)      (0)\n" +
                                              "(0)-+\n" +
                                              "   (0)");
@@ -160,7 +160,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldChooseRightBranchValues() {
-    NodeBasedZigZag.Node tree = parser.parse("          +----(0)\n" +
+    NodeBasedCountZigZag.Node tree = parser.parse("          +----(0)\n" +
                                              " +-------(0)-----------+\n" +
                                              "(0)--+           +----(0)\n" +
                                              "    (0)         (0)--+\n" +
@@ -178,7 +178,7 @@ class NodeBasedZigZagTest {
 
   @Test
   void shouldChooseLeftBranchValues() {
-    NodeBasedZigZag.Node tree = parser.parse("          (0)----+\n" +
+    NodeBasedCountZigZag.Node tree = parser.parse("          (0)----+\n" +
                                              " +--------------(0)----+\n" +
                                              "(0)--+           +----(0)\n" +
                                              "  +-(0)         (0)\n" +
@@ -194,7 +194,7 @@ class NodeBasedZigZagTest {
                      " (0)");
   }
 
-  private void assertTree(NodeBasedZigZag.Node filled, String expected) {
+  private void assertTree(NodeBasedCountZigZag.Node filled, String expected) {
     assertThat(filled).isEqualTo(parser.parse(expected));
   }
 }

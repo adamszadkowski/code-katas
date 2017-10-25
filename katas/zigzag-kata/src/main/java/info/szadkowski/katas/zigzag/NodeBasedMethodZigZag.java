@@ -2,7 +2,7 @@ package info.szadkowski.katas.zigzag;
 
 import java.util.Objects;
 
-public class NodeBasedZigZag {
+public class NodeBasedMethodZigZag {
   public int calculateZigZagCount(Node tree) {
     return tree.getZigZagCount();
   }
