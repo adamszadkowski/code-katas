@@ -4,26 +4,29 @@ import java.util.Objects;
 
 public class NodeBasedCountZigZag {
   public int calculateZigZagCount(Node tree) {
-    int rightValue = tree.right != null ? calculateZigZag(tree.right, Node.Direction.RIGHT) : 0;
-    int leftValue = tree.left != null ? calculateZigZag(tree.left, Node.Direction.LEFT) : 0;
+    if (tree == null)
+      return 0;
+
+    int rightValue = tree.right != null ? calculateZigZag(tree.right, Direction.RIGHT) : 0;
+    int leftValue = tree.left != null ? calculateZigZag(tree.left, Direction.LEFT) : 0;
 
     tree.value = Math.max(rightValue, leftValue);
 
     return tree.value;
   }
 
-  private int calculateZigZag(Node tree, Node.Direction direction) {
+  private int calculateZigZag(Node tree, Direction direction) {
     int sameDirection = 0;
     int oppositeDirection = 0;
 
     switch (direction) {
       case RIGHT:
-        sameDirection = tree.right != null ? calculateZigZag(tree.right, Node.Direction.RIGHT) : 0;
-        oppositeDirection = tree.left != null ? calculateZigZag(tree.left, Node.Direction.LEFT) + 1 : 0;
+        sameDirection = tree.right != null ? calculateZigZag(tree.right, Direction.RIGHT) : 0;
+        oppositeDirection = tree.left != null ? calculateZigZag(tree.left, Direction.LEFT) + 1 : 0;
         break;
       case LEFT:
-        sameDirection = tree.left != null ? calculateZigZag(tree.left, Node.Direction.LEFT) : 0;
-        oppositeDirection = tree.right != null ? calculateZigZag(tree.right, Node.Direction.RIGHT) + 1 : 0;
+        sameDirection = tree.left != null ? calculateZigZag(tree.left, Direction.LEFT) : 0;
+        oppositeDirection = tree.right != null ? calculateZigZag(tree.right, Direction.RIGHT) + 1 : 0;
         break;
     }
 
@@ -55,10 +58,10 @@ public class NodeBasedCountZigZag {
              && Objects.equals(left, node.left)
              && Objects.equals(right, node.right);
     }
+  }
 
-    private enum Direction {
-      RIGHT,
-      LEFT
-    }
+  private enum Direction {
+    RIGHT,
+    LEFT
   }
 }

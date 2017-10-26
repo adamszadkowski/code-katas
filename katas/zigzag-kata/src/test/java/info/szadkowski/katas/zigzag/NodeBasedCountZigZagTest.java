@@ -47,6 +47,13 @@ class NodeBasedCountZigZagTest {
   }
 
   @Test
+  void shouldReturnZeroForNullTree() {
+    int zigZagCount = zigZag.calculateZigZagCount(null);
+
+    assertThat(zigZagCount).isEqualTo(0);
+  }
+
+  @Test
   void shouldFillOneNode() {
     NodeBasedCountZigZag.Node tree = parser.parse("(5)");
 
