@@ -20,28 +20,26 @@ public class NodeBasedMethodZigZag {
     }
 
     public int getZigZagCount() {
-      int rightValue = right != null ? right.calculateZigZag(Direction.RIGHT) : 0;
-      int leftValue = left != null ? left.calculateZigZag(Direction.LEFT) : 0;
+      int rightValue = right != null ? right.calculateOnRight() : 0;
+      int leftValue = left != null ? left.calculateOnLeft() : 0;
 
       value = Math.max(rightValue, leftValue);
 
       return value;
     }
 
-    private int calculateZigZag(Direction direction) {
-      int sameDirection = 0;
-      int oppositeDirection = 0;
+    private int calculateOnLeft() {
+      int sameDirection = left != null ? left.calculateOnLeft() : 0;
+      int oppositeDirection = right != null ? right.calculateOnRight() + 1 : 0;
 
-      switch (direction) {
-        case RIGHT:
-          sameDirection = right != null ? right.calculateZigZag(Direction.RIGHT) : 0;
-          oppositeDirection = left != null ? left.calculateZigZag(Direction.LEFT) + 1 : 0;
-          break;
-        case LEFT:
-          sameDirection = left != null ? left.calculateZigZag(Direction.LEFT) : 0;
-          oppositeDirection = right != null ? right.calculateZigZag(Direction.RIGHT) + 1 : 0;
-          break;
-      }
+      value = Math.max(oppositeDirection, sameDirection);
+
+      return value;
+    }
+
+    private int calculateOnRight() {
+      int sameDirection = right != null ? right.calculateOnRight() : 0;
+      int oppositeDirection = left != null ? left.calculateOnLeft() + 1 : 0;
 
       value = Math.max(oppositeDirection, sameDirection);
 
@@ -58,11 +56,6 @@ public class NodeBasedMethodZigZag {
       return value == node.value
              && Objects.equals(left, node.left)
              && Objects.equals(right, node.right);
-    }
-
-    private enum Direction {
-      RIGHT,
-      LEFT
     }
   }
 }

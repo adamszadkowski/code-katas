@@ -7,32 +7,34 @@ public class NodeBasedCountZigZag {
     if (tree == null)
       return 0;
 
-    int rightValue = tree.right != null ? calculateZigZag(tree.right, Direction.RIGHT) : 0;
-    int leftValue = tree.left != null ? calculateZigZag(tree.left, Direction.LEFT) : 0;
-
-    tree.value = Math.max(rightValue, leftValue);
+    tree.value = Math.max(calculateOnRight(tree.right),
+                          calculateOnLeft(tree.left));
 
     return tree.value;
   }
 
-  private int calculateZigZag(Node tree, Direction direction) {
-    int sameDirection = 0;
-    int oppositeDirection = 0;
+  private int calculateOnLeft(Node node) {
+    if (node == null)
+      return 0;
 
-    switch (direction) {
-      case RIGHT:
-        sameDirection = tree.right != null ? calculateZigZag(tree.right, Direction.RIGHT) : 0;
-        oppositeDirection = tree.left != null ? calculateZigZag(tree.left, Direction.LEFT) + 1 : 0;
-        break;
-      case LEFT:
-        sameDirection = tree.left != null ? calculateZigZag(tree.left, Direction.LEFT) : 0;
-        oppositeDirection = tree.right != null ? calculateZigZag(tree.right, Direction.RIGHT) + 1 : 0;
-        break;
-    }
+    int zigZagAddition = node.right != null ? 1 : 0;
 
-    tree.value = Math.max(oppositeDirection, sameDirection);
+    node.value = Math.max(calculateOnRight(node.right) + zigZagAddition,
+                          calculateOnLeft(node.left));
 
-    return tree.value;
+    return node.value;
+  }
+
+  private int calculateOnRight(Node node) {
+    if (node == null)
+      return 0;
+
+    int zigZagAddition = node.left != null ? 1 : 0;
+
+    node.value = Math.max(calculateOnLeft(node.left) + zigZagAddition,
+                          calculateOnRight(node.right));
+
+    return node.value;
   }
 
   public static class Node {
@@ -58,10 +60,5 @@ public class NodeBasedCountZigZag {
              && Objects.equals(left, node.left)
              && Objects.equals(right, node.right);
     }
-  }
-
-  private enum Direction {
-    RIGHT,
-    LEFT
   }
 }
