@@ -1,4 +1,4 @@
-package info.szadkowski.katas.zigzag;
+package info.szadkowski.katas.zigzag.recursion;
 
 import java.util.Objects;
 

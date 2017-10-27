@@ -1,4 +1,4 @@
-package info.szadkowski.katas.zigzag;
+package info.szadkowski.katas.zigzag.recursion;
 
 public class ExternalZigZagCount {
   public int calculateZigZagCount(Node tree) {
@@ -32,12 +32,10 @@ public class ExternalZigZagCount {
   public static class Node {
     private final Node left;
     private final Node right;
-    private final int value;
 
-    public Node(Node left, Node right, int value) {
+    public Node(Node left, Node right, String ignored) {
       this.left = left;
       this.right = right;
-      this.value = value;
     }
   }
 }

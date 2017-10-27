@@ -1,4 +1,4 @@
-package info.szadkowski.katas.zigzag;
+package info.szadkowski.katas.zigzag.recursion;
 
 import info.szadkowski.katas.zigzag.tree.parser.BinaryTreeParser;
 import org.junit.jupiter.api.BeforeEach;

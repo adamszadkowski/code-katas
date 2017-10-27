@@ -1,4 +1,4 @@
-package info.szadkowski.katas.zigzag;
+package info.szadkowski.katas.zigzag.recursion;
 
 import info.szadkowski.katas.zigzag.tree.parser.BinaryTreeParser;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +12,7 @@ class ExternalZigZagCountTest {
 
   @BeforeEach
   void setUp() {
-    parser = new BinaryTreeParser<>((l, r, s) -> new ExternalZigZagCount.Node(l, r, Integer.parseInt(s)));
+    parser = new BinaryTreeParser<>(ExternalZigZagCount.Node::new);
     zigZag = new ExternalZigZagCount();
   }
 

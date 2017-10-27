@@ -1,4 +1,4 @@
-package info.szadkowski.katas.zigzag;
+package info.szadkowski.katas.zigzag.recursion;
 
 import info.szadkowski.katas.zigzag.tree.parser.BinaryTreeParser;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,15 +33,15 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldCompareDifferentTrees() {
     NodeBasedCountZigZag.Node first = parser.parse("     +----(0)--+\n" +
-                                              "  +-(1)     +-(2)----+\n" +
-                                              " (3)-+     (4)    +-(5)\n" +
-                                              "    (6)        +-(7)\n" +
-                                              "              (8)");
+                                                   "  +-(1)     +-(2)----+\n" +
+                                                   " (3)-+     (4)    +-(5)\n" +
+                                                   "    (6)        +-(7)\n" +
+                                                   "              (8)");
     NodeBasedCountZigZag.Node second = parser.parse("     +----(0)--+\n" +
-                                               "  +-(1)     +-(2)----+\n" +
-                                               " (3)-+     (4)    +-(5)\n" +
-                                               "    (9)        +-(7)\n" +
-                                               "              (8)");
+                                                    "  +-(1)     +-(2)----+\n" +
+                                                    " (3)-+     (4)    +-(5)\n" +
+                                                    "    (9)        +-(7)\n" +
+                                                    "              (8)");
 
     assertThat(second).isNotEqualTo(first);
   }
@@ -66,7 +66,7 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldFillRightNodes() {
     NodeBasedCountZigZag.Node tree = parser.parse("(5)--+\n" +
-                                             "    (5)");
+                                                  "    (5)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
@@ -78,7 +78,7 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldFillLeftNodes() {
     NodeBasedCountZigZag.Node tree = parser.parse(" +---(5)\n" +
-                                             "(5)");
+                                                  "(5)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
@@ -90,8 +90,8 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldFillOneZigZagOnRight() {
     NodeBasedCountZigZag.Node tree = parser.parse("(0)--+\n" +
-                                             "  +-(0)\n" +
-                                             " (0)");
+                                                  "  +-(0)\n" +
+                                                  " (0)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
@@ -104,8 +104,8 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldFillOneZigZagOnLeft() {
     NodeBasedCountZigZag.Node tree = parser.parse(" +----(0)\n" +
-                                             "(0)--+\n" +
-                                             "    (0)");
+                                                  "(0)--+\n" +
+                                                  "    (0)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
@@ -118,9 +118,9 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldFillOneZigZagFromBothSides() {
     NodeBasedCountZigZag.Node tree = parser.parse(" +----(0)------+\n" +
-                                             "(0)--+     +--(0)\n" +
-                                             "    (0)   (0)--+\n" +
-                                             "              (0)");
+                                                  "(0)--+     +--(0)\n" +
+                                                  "    (0)   (0)--+\n" +
+                                                  "              (0)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
@@ -134,10 +134,10 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldHandleTwiceRightBranch() {
     NodeBasedCountZigZag.Node tree = parser.parse(" +----(0)-+\n" +
-                                             "(0)--+   (0)---+\n" +
-                                             "    (0)     +-(0)\n" +
-                                             "           (0)-+\n" +
-                                             "              (0)");
+                                                  "(0)--+   (0)---+\n" +
+                                                  "    (0)     +-(0)\n" +
+                                                  "           (0)-+\n" +
+                                                  "              (0)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
@@ -152,9 +152,9 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldHandleTwiceLeftBranch() {
     NodeBasedCountZigZag.Node tree = parser.parse("    +----(0)-+\n" +
-                                             " +-(0)      (0)\n" +
-                                             "(0)-+\n" +
-                                             "   (0)");
+                                                  " +-(0)      (0)\n" +
+                                                  "(0)-+\n" +
+                                                  "   (0)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
@@ -168,10 +168,10 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldChooseRightBranchValues() {
     NodeBasedCountZigZag.Node tree = parser.parse("          +----(0)\n" +
-                                             " +-------(0)-----------+\n" +
-                                             "(0)--+           +----(0)\n" +
-                                             "    (0)         (0)--+\n" +
-                                             "                    (0)");
+                                                  " +-------(0)-----------+\n" +
+                                                  "(0)--+           +----(0)\n" +
+                                                  "    (0)         (0)--+\n" +
+                                                  "                    (0)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
@@ -186,10 +186,10 @@ class NodeBasedCountZigZagTest {
   @Test
   void shouldChooseLeftBranchValues() {
     NodeBasedCountZigZag.Node tree = parser.parse("          (0)----+\n" +
-                                             " +--------------(0)----+\n" +
-                                             "(0)--+           +----(0)\n" +
-                                             "  +-(0)         (0)\n" +
-                                             " (0)");
+                                                  " +--------------(0)----+\n" +
+                                                  "(0)--+           +----(0)\n" +
+                                                  "  +-(0)         (0)\n" +
+                                                  " (0)");
 
     int zigZagCount = zigZag.calculateZigZagCount(tree);
 
