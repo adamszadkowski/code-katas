@@ -16,6 +16,7 @@
     <modules>
         <module>binary-gap-kata</module>
         <module>binary-tree-parser-kata</module>
+        <module>binary-tree-traversal-kata</module>
         <module>cyclic-rotation-kata</module>
         <module>max-counters-kata</module>
         <module>search-missing-element-kata</module>
