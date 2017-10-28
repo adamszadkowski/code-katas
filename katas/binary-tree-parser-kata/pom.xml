@@ -9,16 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>zigzag-kata</artifactId>
-    <name>Code Katas :: Katas :: ZigZag Kata</name>
+    <artifactId>binary-tree-parser-kata</artifactId>
+    <name>Code Katas :: Katas :: Binary Tree Parser Kata</name>
 
     <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>binary-tree-parser-kata</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
