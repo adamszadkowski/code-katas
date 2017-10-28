@@ -15,7 +15,7 @@ public class BinaryTreeParser<T> {
     int firstNodeLine = findIndexOfRootNodeLine(lines);
     int firstNodePosition = lines[firstNodeLine].indexOf('(');
 
-    return scan(lines, firstNodeLine, firstNodePosition);
+    return scanInLine(lines, firstNodeLine, firstNodePosition);
   }
 
   private int findIndexOfRootNodeLine(String[] lines) {
@@ -26,29 +26,42 @@ public class BinaryTreeParser<T> {
     throw new InvalidInputException("Cannot find any node");
   }
 
-  private T scan(String[] lines, int line, int pos) {
+  private T scanInLine(String[] lines, int line, int pos) {
     if (pos == -1)
       return null;
 
     validateInput(lines, line);
 
+    if (isExtensionLine(lines, line, pos))
+      return scanInLine(lines, line + 1, pos);
+
+    return expectNode(lines, line, pos);
+  }
+
+  private void validateInput(String[] lines, int line) {
+    if (lines.length <= line)
+      throw new InvalidInputException(String.format("Expected line %d", line + 1));
+  }
+
+  private boolean isExtensionLine(String[] lines, int line, int pos) {
     char[] chars = lines[line].toCharArray();
+    return pos < chars.length && chars[pos] == '|';
+  }
+
+  private T expectNode(String[] lines, int line, int pos) {
+    char[] chars = lines[line].toCharArray();
+
     int openParen = findOpenParen(line, chars, pos);
     int closeParen = findCloseParen(line, chars, pos);
 
     int leftNodePos = findLeftNodePosition(line, chars, openParen);
     int rightNodePos = findRightNodePosition(line, chars, closeParen);
 
-    T left = scan(lines, line + 1, leftNodePos);
-    T right = scan(lines, line + 1, rightNodePos);
+    T left = scanInLine(lines, line + 1, leftNodePos);
+    T right = scanInLine(lines, line + 1, rightNodePos);
     String arguments = lines[line].substring(openParen + 1, closeParen);
 
     return converter.convert(left, right, arguments);
-  }
-
-  private void validateInput(String[] lines, int line) {
-    if (lines.length <= line)
-      throw new InvalidInputException(String.format("Expected line %d", line + 1));
   }
 
   private int findOpenParen(int line, char[] chars, int pos) {

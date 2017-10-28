@@ -73,6 +73,26 @@ class BinaryTreeParserTest {
     }
 
     @Test
+    void shouldRequireNewLineAfterLeftExtensionLine() {
+      BinaryTreeParser.InvalidInputException exception = Assertions.assertThrows(BinaryTreeParser.InvalidInputException.class, () -> {
+        parser.parse("+-()\n" +
+                     "|");
+      });
+
+      assertThat(exception).hasMessage("Expected line 3");
+    }
+
+    @Test
+    void shouldRequireNewLineAfterRightExtensionLine() {
+      BinaryTreeParser.InvalidInputException exception = Assertions.assertThrows(BinaryTreeParser.InvalidInputException.class, () -> {
+        parser.parse("()-+\n" +
+                     "   |");
+      });
+
+      assertThat(exception).hasMessage("Expected line 3");
+    }
+
+    @Test
     void shouldRequireLeftNodeBeginIfStated() {
       BinaryTreeParser.InvalidInputException exception = Assertions.assertThrows(BinaryTreeParser.InvalidInputException.class, () -> {
         parser.parse("+-()\n");
@@ -88,6 +108,26 @@ class BinaryTreeParserTest {
       });
 
       assertThat(exception).hasMessage("Expected node begin in (line 2, position 4)");
+    }
+
+    @Test
+    void shouldRequireLeftNodeBeginAfterExtensionLine() {
+      BinaryTreeParser.InvalidInputException exception = Assertions.assertThrows(BinaryTreeParser.InvalidInputException.class, () -> {
+        parser.parse("+-()\n" +
+                     "|\n");
+      });
+
+      assertThat(exception).hasMessage("Expected node begin in (line 3, position 1)");
+    }
+
+    @Test
+    void shouldRequireRightNodeBeginAfterExtensionLine() {
+      BinaryTreeParser.InvalidInputException exception = Assertions.assertThrows(BinaryTreeParser.InvalidInputException.class, () -> {
+        parser.parse("()-+\n" +
+                     "   |\n");
+      });
+
+      assertThat(exception).hasMessage("Expected node begin in (line 3, position 4)");
     }
 
     @Test
@@ -180,10 +220,41 @@ class BinaryTreeParserTest {
   }
 
   @Test
+  void shouldReadLeftNodeAfterExtensionLine() {
+    Node tree = parser.parse("+-(content)\n" +
+                             "|\n" +
+                             "(left)");
+
+    assertThat(tree).isNotNull();
+    assertThat(tree.left).isNotNull();
+    assertThat(tree.right).isNull();
+    assertThat(tree.content).isEqualTo("content");
+    assertThat(tree.left.left).isNull();
+    assertThat(tree.left.right).isNull();
+    assertThat(tree.left.content).isEqualTo("left");
+  }
+
+  @Test
+  void shouldReadRightNodeAfterExtensionLine() {
+    Node tree = parser.parse("(content)--+\n" +
+                             "           |\n" +
+                             "           (right)");
+
+    assertThat(tree).isNotNull();
+    assertThat(tree.left).isNull();
+    assertThat(tree.right).isNotNull();
+    assertThat(tree.content).isEqualTo("content");
+    assertThat(tree.right.left).isNull();
+    assertThat(tree.right.right).isNull();
+    assertThat(tree.right.content).isEqualTo("right");
+  }
+
+  @Test
   void integration() {
     Node tree = parser.parse("         +-------(root)--+\n" +
                              "   +--(left1)-+       (right1)---+\n" +
-                             "(left2)    (right2)           (right3)");
+                             "   |       (right2)              |\n" +
+                             "(left2)                       (right3)\n");
 
     assertThat(tree.content).isEqualTo("root");
     assertThat(tree.left.content).isEqualTo("left1");
