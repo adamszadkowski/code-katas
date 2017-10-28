@@ -1,4 +1,4 @@
-package info.szadkowski.katas.zigzag.tree.parser;
+package info.szadkowski.katas.binary.tree.parser;
 
 @FunctionalInterface
 public interface Converter<T> {

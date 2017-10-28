@@ -1,4 +1,4 @@
-package info.szadkowski.katas.zigzag.tree.parser;
+package info.szadkowski.katas.binary.tree.parser;
 
 public class BinaryTreeParser<T> {
   private final Converter<T> converter;

@@ -1,7 +1,6 @@
 package info.szadkowski.katas.zigzag.iteration;
 
-import info.szadkowski.katas.zigzag.iteration.IterationZigZag;
-import info.szadkowski.katas.zigzag.tree.parser.BinaryTreeParser;
+import info.szadkowski.katas.binary.tree.parser.BinaryTreeParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

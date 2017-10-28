@@ -1,5 +1,6 @@
-package info.szadkowski.katas.zigzag.tree.parser;
+package info.szadkowski.katas.binary.tree.parser;
 
+import info.szadkowski.katas.binary.tree.parser.BinaryTreeParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
